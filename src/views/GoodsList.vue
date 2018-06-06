@@ -7,6 +7,12 @@
          -->
         <router-link to="/goods/title">显示Title</router-link>
         <router-link to="/goods/img">显示Image</router-link>
+        <p>
+            <!-- 这里使用router-link实现页面跳转 -->
+            <router-link to="/Cart">跳转到购物车页面</router-link>
+            <!-- 这里使用js(编程式路由)来实现跳转 -->
+            <button v-on:click="jump">button - 跳转到购物车页面</button>
+        </p>
 
         <div>
             <router-view/>
@@ -22,6 +28,16 @@
         data(){
             return {
                 msg : '77'
+            }
+        },
+        methods : {
+            jump(){
+                // this.$router.push("/cart");//ok
+                
+                // this.$router.push({path:'./cart'});//ok
+                
+                this.$router.push({path:'./cart?goodsId=123'});//ok
+
             }
         }
     }
