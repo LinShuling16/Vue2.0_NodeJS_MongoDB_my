@@ -2,6 +2,7 @@
     <div>
         this is GoodsList
         <!-- 
+            嵌套路由：同一个页面不同菜单的切换
             注意这里的to属性要写绝对地址
          -->
         <router-link to="/goods/title">显示Title</router-link>
@@ -20,7 +21,7 @@
     export default{
         data(){
             return {
-                msg : 'linshuling'
+                msg : '77'
             }
         }
     }
