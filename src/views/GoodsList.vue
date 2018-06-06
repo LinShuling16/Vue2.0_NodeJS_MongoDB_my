@@ -30,7 +30,10 @@
                 msg : '77'
             }
         },
+
+
         methods : {
+            //编程式路由
             jump(){
                 // this.$router.push("/cart");//ok
                 
