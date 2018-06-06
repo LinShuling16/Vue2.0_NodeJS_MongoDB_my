@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <router-view/>
+    <!-- 这里是命名视图 -->
+    <router-view name="title"/>
+    <router-view name="img"/>
   </div>
 </template>
 

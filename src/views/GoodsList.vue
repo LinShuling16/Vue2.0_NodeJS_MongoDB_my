@@ -10,8 +10,14 @@
         <p>
             <!-- 这里使用router-link实现页面跳转 -->
             <router-link to="/Cart">跳转到购物车页面</router-link>
+            
             <!-- 这里使用js(编程式路由)来实现跳转 -->
             <button v-on:click="jump">button - 跳转到购物车页面</button>
+
+
+            <!-- 通过命名路由来实现跳转 -->
+            <!-- 注意这里要用v-bind指令 -->
+            <router-link v-bind:to="{name:'cart',params:{cartId:22}}">跳转到购物车页面</router-link>
         </p>
 
         <div>
