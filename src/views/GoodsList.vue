@@ -1,10 +1,17 @@
 <template>
     <div>
         this is GoodsList
-        <p>{{msg}}</p>
-        <p>{{$route.params.goodsId}}</p>
-        <p>{{$route.params.name}}</p>
+        <!-- 
+            注意这里的to属性要写绝对地址
+         -->
+        <router-link to="/goods/title">显示Title</router-link>
+        <router-link to="/goods/img">显示Image</router-link>
+
+        <div>
+            <router-view/>
+        </div>
     </div>
+    
 </template>
 <style>
     
