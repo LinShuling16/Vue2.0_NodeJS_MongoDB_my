@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <h5>vue-axios使用</h5>
+        <p>vue-resource是挂载到实例的，axios不是。</p>
+        <a href="javascript:" class="btn btn-primary" @click='get'>Get请求</a>
+        <a href="javascript:" class="btn btn-primary" v-on:click='post'>Post请求</a>
+        <a href="javascript:" class="btn btn-primary" v-on:click='http'>http请求</a>
+        <div>{{msg}}</div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                msg:''
+            },
+            // axios  interceptors全局拦截器的使用(请求前，请求后的处理)
+            mounted: function(){
+               axios.interceptors.request.use(function(config){
+                    //请求前，loading处理
+                    console.log("request init");
+
+                    return config;
+               })
+               axios.interceptors.response.use(function(response){
+                    //响应之后
+                    console.log("response init");
+
+                    return response;
+               })
+            },
+            methods : {
+                get: function(){
+                   axios.get("../package.json",{
+                        params:{
+                            userId:"88"
+                        },
+                        headers: {
+                            token:"jack"
+                        }
+                   }).then(res=>{
+                        this.msg = res.data;
+                   }).catch(function(error){
+                        console.log("error init" + error);
+                   });
+                },
+                post: function(){
+                    axios.post('../package.json',{
+                        userId : '77'
+                    },{
+                        headers : {
+                            token : 'tom'
+                        }
+                    }).then(res =>{
+                        this.msg = res.data;
+                    }).catch(function(error){
+                        console.log("error init" + error);
+                    })
+                },
+                http : function(){
+                   axios({
+                        url:"../package.json",
+                        // method:"get",
+                        // params:{
+                        //     userId : "109"
+                        // },
+                        method : "post",
+                        data   : {
+                            userId : '00'
+                        },
+                        headers:{
+                            token:"http-test"
+                        }
+                   }).then(res=>{
+                        this.msg = res.data;
+                   }).catch(function(error){
+                        console.log("error init" + error);
+                   })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
