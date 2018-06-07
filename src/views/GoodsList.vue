@@ -1,53 +1,97 @@
 <template>
     <div>
-        this is GoodsList
-        <!-- 
-            嵌套路由：同一个页面不同菜单的切换
-            注意这里的to属性要写绝对地址
-         -->
-        <router-link to="/goods/title">显示Title</router-link>
-        <router-link to="/goods/img">显示Image</router-link>
-        <p>
-            <!-- 这里使用router-link实现页面跳转 -->
-            <router-link to="/Cart">跳转到购物车页面</router-link>
-            
-            <!-- 这里使用js(编程式路由)来实现跳转 -->
-            <button v-on:click="jump">button - 跳转到购物车页面</button>
-
-
-            <!-- 通过命名路由来实现跳转 -->
-            <!-- 注意这里要用v-bind指令 -->
-            <router-link v-bind:to="{name:'cart',params:{cartId:22}}">跳转到购物车页面</router-link>
-        </p>
-
-        <div>
-            <router-view/>
+        <div class="nav-breadcrumb-wrap">
+          <div class="container">
+            <nav class="nav-breadcrumb">
+              <a href="/">Home</a>
+              <span>Goods</span>
+            </nav>
+          </div>
         </div>
+        <div class="accessory-result-page accessory-page">
+          <div class="container">
+            <div class="filter-nav">
+              <span class="sortby">Sort by:</span>
+              <a href="javascript:void(0)" class="default cur">Default</a>
+              <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+              <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+            </div>
+            <div class="accessory-result">
+              <!-- filter -->
+              <div class="filter stopPop" id="filter">
+                <dl class="filter-price">
+                  <dt>Price:</dt>
+                  <dd><a href="javascript:void(0)">All</a></dd>
+                  <dd>
+                    <a href="javascript:void(0)">0 - 100</a>
+                  </dd>
+                </dl>
+              </div>
+
+              <!-- search result accessories list -->
+              <div class="accessory-list-wrap">
+                <div class="accessory-list col-4">
+                  <ul>
+                    <li>
+                      <div class="pic">
+                        <a href="#"><img src="/static/1.jpg" alt=""></a>
+                      </div>
+                      <div class="main">
+                        <div class="name">XX</div>
+                        <div class="price">XX</div>
+                        <div class="btn-area">
+                          <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <div class="footer__wrap">
+            <div class="footer__secondary">
+              <div class="footer__inner">
+                <div class="footer__region">
+                  <span>Region</span>
+                  <select class="footer__region__select">
+                    <option value="en-US">USA</option>
+                    <option value="zh-CN">China</option>
+                    <option value="in">India</option>
+                  </select>
+                </div>
+                <div class="footer__secondary__nav">
+                  <span>Copyright © 2017 IMooc All Rights Reserved.</span>
+                  <a href="http://us.lemall.com/us/aboutUs.html">
+                    About Us
+                  </a>
+                  <a href="http://us.lemall.com/us/termsofUse.html">
+                    Terms &amp; Conditions
+                  </a>
+                  <a href="http://us.lemall.com/us/privacyPolicy.html">
+                    Privacy Policy
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
     </div>
-    
 </template>
-<style>
-    
-</style>
 <script>
+    //导入样式
+    import './../assets/css/base.css'
+    import './../assets/css/product.css'
     export default{
         data(){
             return {
                 msg : '77'
             }
         },
-
-
         methods : {
-            //编程式路由
-            jump(){
-                // this.$router.push("/cart");//ok
-                
-                // this.$router.push({path:'./cart'});//ok
-                
-                this.$router.push({path:'./cart?goodsId=123'});//ok
 
-            }
         }
     }
 </script>
