@@ -9,10 +9,12 @@
 </head>
 <body>
     <div id="app" class="container">
-        <h1>vue-resource使用</h1>
+        <h5>vue-resource使用</h5>
         <a href="javascript:" class="btn btn-primary" @click='get'>Get请求</a>
         <a href="javascript:" class="btn btn-primary" v-on:click='post'>Post请求</a>
         <a href="javascript:" class="btn btn-primary" v-on:click='jsonp'>JSONP请求</a>
+        <a href="javascript:" class="btn btn-primary" v-on:click='http'>http
+        请求</a>
         <div>{{msg}}</div>
     </div>
     <script>
@@ -20,6 +22,21 @@
             el:"#app",
             data:{
                 msg:''
+            },
+            // interceptors全局拦截器的使用(请求前，请求后的处理)
+            mounted: function(){
+                Vue.http.interceptors.push(function(request, next){
+                    //可以在这里做一些loading的处理
+                    console.log("request init.");
+                    next(function(response){
+                        console.log("response init.");
+                        return response;
+                    });
+                });
+            },
+            //全局路径的配置
+            http:{
+                root:"http://localhost:8080/Vue2.0_NodeJS_MongoDB_my/"
             },
             methods : {
                 get: function(){
@@ -55,6 +72,26 @@
                         this.msg = res.data;
                     }, function(error){
                         this.mag = error;
+                    })
+                },
+                http : function(){
+                    this.$http({
+                        url : 'package.json',
+                        method:'GET',
+                        params:{
+                            userId : '90'
+                        },
+                        headers:{
+                            token:'66'
+                        },
+                        timeout:50,
+                        before: function(){
+                            console.log("before init");
+                        }
+                    }).then(function(res){
+                        this.msg = res.data;
+                    },function(error){
+                        this.msg = error;
                     })
                 }
             }
