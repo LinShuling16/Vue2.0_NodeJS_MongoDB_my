@@ -2,7 +2,7 @@
 * @Author: linshuling
 * @Date:   2018-06-11 16:12:13
 * @Last Modified by:   linshuling
-* @Last Modified time: 2018-06-11 16:51:58
+* @Last Modified time: 2018-06-11 17:12:56
 */
 let user = require('./User');
 console.log(`I'm ${user.userName},I say ${user.sayHello()}.`);
@@ -28,3 +28,4 @@ let server = http.createServer((req,res) =>{
 server.listen(3001,'127.0.0.1', ()=>{
     console.log('runing, open:http://127.0.0.1:3001');
 })
+
