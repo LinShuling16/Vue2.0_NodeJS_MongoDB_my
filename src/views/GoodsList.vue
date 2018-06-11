@@ -1,13 +1,9 @@
 <template>
     <div>
-        <div class="nav-breadcrumb-wrap">
-          <div class="container">
-            <nav class="nav-breadcrumb">
-              <a href="/">Home</a>
-              <span>Goods</span>
-            </nav>
-          </div>
-        </div>
+        <nav-header></nav-header>
+        <nav-bread>
+            <span>Goods</span>
+        </nav-bread>
         <div class="accessory-result-page accessory-page">
           <div class="container">
             <div class="filter-nav">
@@ -32,13 +28,13 @@
               <div class="accessory-list-wrap">
                 <div class="accessory-list col-4">
                   <ul>
-                    <li>
+                    <li v-for="(item,index) in goodsList">
                       <div class="pic">
-                        <a href="#"><img src="/static/1.jpg" alt=""></a>
+                        <a href="#"><img v-bind:src="'/static/'+ item.prodcutImg" alt=""></a>
                       </div>
                       <div class="main">
-                        <div class="name">XX</div>
-                        <div class="price">XX</div>
+                        <div class="name">{{item.productName}}</div>
+                        <div class="price">{{item.prodcutPrice}}</div>
                         <div class="btn-area">
                           <a href="javascript:;" class="btn btn--m">加入购物车</a>
                         </div>
@@ -50,48 +46,44 @@
             </div>
           </div>
         </div>
-        <footer class="footer">
-          <div class="footer__wrap">
-            <div class="footer__secondary">
-              <div class="footer__inner">
-                <div class="footer__region">
-                  <span>Region</span>
-                  <select class="footer__region__select">
-                    <option value="en-US">USA</option>
-                    <option value="zh-CN">China</option>
-                    <option value="in">India</option>
-                  </select>
-                </div>
-                <div class="footer__secondary__nav">
-                  <span>Copyright © 2017 IMooc All Rights Reserved.</span>
-                  <a href="http://us.lemall.com/us/aboutUs.html">
-                    About Us
-                  </a>
-                  <a href="http://us.lemall.com/us/termsofUse.html">
-                    Terms &amp; Conditions
-                  </a>
-                  <a href="http://us.lemall.com/us/privacyPolicy.html">
-                    Privacy Policy
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <nav-footer></nav-footer>
     </div>
 </template>
 <script>
+    //导入插件-会自动的去node_modules里面查找，不需要做路径匹配
+    import axios from 'axios'
     //导入样式
     import './../assets/css/base.css'
     import './../assets/css/product.css'
+
+    //导入组件
+    import NavHeader from '@/components/NavHeader.vue'
+    import NavFooter from '@/components/NavFooter.vue'
+    import NavBread from '@/components/NavBread.vue'
+
     export default{
         data(){
             return {
+                goodsList : [],
                 msg : '77'
             }
         },
+        mounted : function(){
+          this.getGoodsList();
+        },
         methods : {
-
-        }
+            getGoodsList(){
+                axios.get("/goods/list").then((result) => {
+                    var res = result.data;
+                    this.goodsList = res.result;
+                    console.log(this.goodsList);
+                })
+            }
+        },
+        components:{
+            NavHeader,
+            NavFooter,
+            NavBread,     
+         }
     }
 </script>
