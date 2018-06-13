@@ -2,7 +2,7 @@
 * @Author: linshuling
 * @Date:   2018-06-13 15:14:28
 * @Last Modified by:   linshuling
-* @Last Modified time: 2018-06-13 17:10:09
+* @Last Modified time: 2018-06-13 20:46:13
 * 
 */
 
@@ -27,8 +27,16 @@ mongoose.connection.on('disconnected', function(){
 })
 
 router.get('/', function(req, res, next){
-    // res.send('hello, goods list');
-    Goods.find({}, function(err, doc){
+    let page = parseInt(req.param('page'));
+    let pageSize = parseInt(req.param('pageSize'));
+    let sort = req.param('sort');
+    let skip = (page-1)*pageSize;
+
+    let params = {};
+    let goodsModel = Goods.find(params).skip(skip).limit(pageSize);
+    goodsModel.sort({'salePrice' : sort});
+    
+    goodsModel.exec(function(err, doc){
         if(err){
             res.json({
                 status: '1',
