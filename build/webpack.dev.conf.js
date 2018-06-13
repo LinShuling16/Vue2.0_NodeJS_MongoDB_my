@@ -46,13 +46,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
+    
     //tap
     //加载模拟数据
-    before(app){
-        app.get('/goods/list',function(req,res,next){
-            res.json(goodsData);
-        })
-    }
+    // before(app){
+    //     app.get('/goods/list',function(req,res,next){
+    //         res.json(goodsData);
+    //     })
+    // }
 
   },
 
