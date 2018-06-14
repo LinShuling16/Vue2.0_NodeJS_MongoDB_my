@@ -6,7 +6,6 @@ var logger = require('morgan');
 var ejs = require('ejs');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var goodsRouter = require('./routes/goods');
 
 var app = express();
@@ -25,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //这里是一极路由
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);
 
 // catch 404 and forward to error handler
