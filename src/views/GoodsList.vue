@@ -49,7 +49,7 @@
                         </li>
                     </ul>
                     <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
-                      加载中...
+                        <img src="./../assets/loading-spinning-bubbles.svg" v-show="loading">
                     </div>
                  </div>
               </div>
@@ -100,7 +100,8 @@
                 ],
                 priceChecked : 'all',
                 filterBy:false,
-                overLayFlag:false
+                overLayFlag:false,
+                loading : false
                 
             }
         },
@@ -115,10 +116,12 @@
                     sort            : this.sortFlag?1:-1,
                     priceLevel      : this.priceChecked
                 };
+                this.loading = true;
                 axios.get("/goods",{
                     params : param
                 }).then((result) => {
                     let res = result.data;
+                    this.loading = false;
                     if(res.status === '0'){
                         if(flag){
                             this.goodsList = this.goodsList.concat(res.result.list);
