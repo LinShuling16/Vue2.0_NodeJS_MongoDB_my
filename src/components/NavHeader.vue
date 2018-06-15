@@ -144,6 +144,9 @@
                 nickName  : ''
             }
         },
+        mounted(){
+            this.checkLogin();
+        },
         methods : {
             login(){
                 if(!this.userName || !this.userPwd){
@@ -171,6 +174,14 @@
                     let res = response.data;
                     if(res.status == '0'){
                         this.nickName = '';
+                    }
+                })
+            },
+            checkLogin(){
+                axios.get("/users/checkLogin").then((response) => {
+                    let res = response.data;
+                    if(res.status == '0'){
+                        this.nickName = res.result;
                     }
                 })
             }

@@ -2,7 +2,7 @@
 * @Author: linshuling
 * @Date:   2018-06-13 15:14:28
 * @Last Modified by:   linshuling
-* @Last Modified time: 2018-06-14 15:40:27
+* @Last Modified time: 2018-06-15 14:41:04
 * 
 */
 
@@ -28,7 +28,7 @@ mongoose.connection.on('disconnected', function(){
 
 
 //查询商品列表
-router.get('/', function(req, res, next){
+router.get('/list', function(req, res, next){
     let page = parseInt(req.param('page'));
     let pageSize = parseInt(req.param('pageSize'));
 
@@ -119,7 +119,7 @@ router.post("/addCart", function(req, res, next){
                         }else{
                             res.json({
                                 status : "0",
-                                msg    : "",
+                                msg    : "添加成功",
                                 result : "success"
                             })
                         } 
@@ -145,7 +145,7 @@ router.post("/addCart", function(req, res, next){
                                      }else{
                                         res.json({
                                             status : "0",
-                                            msg    : "",
+                                            msg    : "添加成功",
                                             result : "success"
                                         })
                                      } 

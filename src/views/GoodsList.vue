@@ -117,7 +117,7 @@
                     priceLevel      : this.priceChecked
                 };
                 this.loading = true;
-                axios.get("/goods",{
+                axios.get("/goods/list",{
                     params : param
                 }).then((result) => {
                     let res = result.data;
@@ -170,11 +170,12 @@
             addCart(productId){
                 axios.post("/goods/addCart",{
                     productId : productId
-                }).then((res)=>{
+                }).then((response)=>{
+                    var res = response.data;
                     //注意这里：res是封装好的对象，status在res.data里面。
-                    if(res.data.status == 0){
+                    if(res.status == 0){
                         console.log(res);
-                        alert("加入成功");
+                        alert(res.msg);
                     }else{
                         console.log(res);
                     }
