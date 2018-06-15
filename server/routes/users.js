@@ -1,5 +1,6 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
+var User    = require('./../models/users');
 
 //路由文件里的是二级路由
 
@@ -11,5 +12,38 @@ router.get('/', function(req, res, next) {
 router.get('/test', function(req, res, next) {
   res.send('test');
 });
+
+router.post('/login', function(req, res, next){
+    var param = {
+        userName : req.body.userName,
+        userPwd  : req.body.userPwd
+    }
+    User.findOne(param, function(err, doc){
+        if(err){
+            res.json({
+                status : '1',
+                msg    : err.message
+            });
+        }else{
+            if(doc){
+                //cookie处理
+                res.cookie("userId", doc.userId,{
+                    path   : '/',
+                    maxAge : 1000*60*60
+                });
+                //session处理
+                // req.session.user = doc;
+                
+                res.json({
+                   status : '0',
+                   msg    : '',
+                   result : {
+                        userName:doc.userName
+                   }
+                });
+            }
+        }
+    })
+})
 
 module.exports = router;

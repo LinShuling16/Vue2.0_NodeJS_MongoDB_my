@@ -15,6 +15,12 @@ module.exports = {
     proxyTable: {
         '/goods' : {
             target : 'http://localhost:3002'
+        },
+        '/goods/*' : {
+            target : 'http://localhost:3002'
+        },
+        '/users/*' : {
+            target : 'http://localhost:3002'
         }
     },
 
