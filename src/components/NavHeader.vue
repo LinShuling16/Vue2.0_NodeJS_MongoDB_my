@@ -17,7 +17,7 @@
                 <!--<a href="/" class="navbar-link">我的账户</a>-->
                 <span class="navbar-link" v-text="nickName" v-if="nickName"></span>
                 <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">Login</a>
-                <a href="javascript:void(0)" class="navbar-link" v-if="nickName">Logout</a>
+                <a href="javascript:void(0)" class="navbar-link" v-if="nickName" @click="logout">Logout</a>
                 <div class="navbar-cart-container">
                   <span class="navbar-cart-count"></span>
                   <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -154,6 +154,7 @@
                     userName : this.userName,
                     userPwd  : this.userPwd
                 }).then((response) =>{
+                    console.log(response);
                     let res = response.data;
                     if(res.status == '0'){
                         this.errorTip = false;
@@ -162,6 +163,14 @@
                         //to-do.
                     }else{
                         this.errorTip = true;
+                    }
+                })
+            },
+            logout(){
+                axios.post("/users/logout").then((response) =>{
+                    let res = response.data;
+                    if(res.status == '0'){
+                        this.nickName = '';
                     }
                 })
             }
