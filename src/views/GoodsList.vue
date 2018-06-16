@@ -9,7 +9,7 @@
             <div class="filter-nav">
               <span class="sortby">Sort by:</span>
               <a href="javascript:void(0)" class="default cur">Default</a>
-              <a href="javascript:void(0)" class="price" @click="sortGoods">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+              <a href="javascript:void(0)" class="price" v-bind:class="{'sort-up':sortFlag}" @click="sortGoods()">Price <svg class="icon icon-arrow-short"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-short"></use></svg></a>
               <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
             </div>
             <div class="accessory-result">
@@ -57,6 +57,26 @@
           </div>
         </div>
         <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
+        <modal v-bind:mdShow="mdShow" v-on:close="closeModal">
+            <p slot="message">
+                请先登录，否则无法加入到购物车中！
+            </p>
+            <div slot="btnGroup">
+                <a class="btn btn--m" href="javascript:;" @click="mdShow = false">关闭</a>
+            </div>
+        </modal>
+        <modal v-bind:mdShow="mdShowCart" v-on:close="closeModal">
+            <p slot="message">
+              <svg class="icon-status-ok">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+              </svg>
+              <span>加入购物车成!</span>
+            </p>
+            <div slot="btnGroup">
+              <a class="btn btn--m" href="javascript:;" @click="mdShowCart = false">继续购物</a>
+              <router-link class="btn btn--m btn--red" href="javascript:;" to="/cart">查看购物车</router-link>
+            </div>
+        </modal>
         <nav-footer></nav-footer>
     </div>
 </template>
@@ -71,6 +91,7 @@
     import NavHeader from '@/components/NavHeader.vue'
     import NavFooter from '@/components/NavFooter.vue'
     import NavBread from '@/components/NavBread.vue'
+    import Modal from '@/components/Modal.vue'
 
     export default{
         data(){
@@ -101,8 +122,9 @@
                 priceChecked : 'all',
                 filterBy:false,
                 overLayFlag:false,
-                loading : false
-                
+                loading : false,
+                mdShow : false,
+                mdShowCart : false
             }
         },
         mounted : function(){
@@ -173,20 +195,27 @@
                 }).then((response)=>{
                     var res = response.data;
                     //注意这里：res是封装好的对象，status在res.data里面。
-                    if(res.status == 0){
+                    if(res.status == '0'){
                         console.log(res);
-                        alert(res.msg);
+                        this.mdShowCart = true;
+                        // alert(res.msg);
                     }else{
                         console.log(res);
+                        this.mdShow = true;
                     }
                 });
             },
+            closeModal(){
+                this.mdShow = false;
+                this.mdShowCart = false;
+            }
             
         },
         components:{
             NavHeader,
             NavFooter,
-            NavBread,     
+            NavBread, 
+            Modal    
          }
     }
 </script>
