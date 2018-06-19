@@ -139,4 +139,32 @@ router.post("/cartDel", function(req, res, next){
     })
 })
 
+//购物车页面编辑
+router.post("/cartEdit", function(req, res, next){
+    var userId     = req.cookies.userId;
+    var productId  = req.body.productId;
+    var productNum = req.body.productNum;
+
+    User.update({
+        "userId" : userId,
+        "cartList.productId" : productId
+    },{
+        "cartList.$.productNum" : productNum
+    }, function(err, doc){
+        if(err){
+            res.json({
+                status : "1",
+                msg    : err.message,
+                result : ""
+            })
+        }else{
+            res.json({
+                status : "0",
+                msg    : "",
+                result : "success"
+            })
+        }
+    })
+})
+
 module.exports = router;
