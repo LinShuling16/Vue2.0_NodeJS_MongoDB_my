@@ -144,13 +144,15 @@ router.post("/cartEdit", function(req, res, next){
     var userId     = req.cookies.userId;
     var productId  = req.body.productId;
     var productNum = req.body.productNum;
+    var checked    = req.body.checked;
 
     User.update({
         "userId" : userId,
         "cartList.productId" : productId
     },{
-        "cartList.$.productNum" : productNum
-    }, function(err, doc){
+        "cartList.$.productNum" : productNum,
+        "cartList.$.checked"    : checked
+     }, function(err, doc){
         if(err){
             res.json({
                 status : "1",
