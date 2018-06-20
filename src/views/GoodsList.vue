@@ -127,7 +127,7 @@
                 mdShowCart : false
             }
         },
-        mounted : function(){
+        mounted(){
           this.getGoodsList();
         },
         methods : {
