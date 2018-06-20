@@ -76,7 +76,7 @@
                       </div>
                     </div>
                     <div class="cart-tab-2">
-                      <div class="item-price">{{item.salePrice}}</div>
+                      <div class="item-price">{{item.salePrice | currency('$')}}</div>
                     </div>
                     <div class="cart-tab-3">
                       <div class="item-quantity">
@@ -90,7 +90,7 @@
                       </div>
                     </div>
                     <div class="cart-tab-4">
-                        <div class="item-price-total">{{item.productNum * item.salePrice}}</div>
+                        <div class="item-price-total">{{(item.productNum * item.salePrice) | currency('$')}}</div>
                     </div>
                     <div class="cart-tab-5">
                       <div class="cart-item-opration">
@@ -191,9 +191,9 @@
         mounted(){
             this.init();
         },
-        filters : {
-            currency : currency
-        },
+        // filters : {
+        //     currency : currency
+        // },
         computed : {
             checkAllFlag(){
                 return this.checkedCount == this.cartList.length;
