@@ -95,10 +95,10 @@
 
               <div class="order-foot-wrap">
                 <div class="prev-btn-wrap">
-                  <button class="btn btn--m">Previous</button>
+                   <router-link class="btn btn--m" to="/address">Previous</router-link>
                 </div>
                 <div class="next-btn-wrap">
-                  <button class="btn btn--m btn--red">Proceed to payment</button>
+                  <button class="btn btn--m btn--red" @click="payMent">Proceed to payment</button>
                 </div>
               </div>
             </div>
@@ -158,7 +158,21 @@
                    //计算最终价格
                    this.orderTotal = this.subTotal - this.discount + this.shipping + this.tax;
                });
-
+            },
+            payMent(){
+                var addressId = this.$route.query.addressId;
+                axios.post("/users/payMent", {
+                    addressId  : addressId,
+                    orderTotal : this.orderTotal
+                }).then((response) => {
+                    let res = response.data;
+                    if(res.status == '0'){
+                        this.$router.push({
+                            path : '/orderSuccess?orderId=' + res.result.orderId
+                        })
+                        console.log("order created succsee.");
+                    }
+                })
             }
         }
     }
