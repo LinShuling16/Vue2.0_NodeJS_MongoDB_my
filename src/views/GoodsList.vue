@@ -216,6 +216,6 @@
             NavFooter,
             NavBread, 
             Modal    
-         }
+        }
     }
 </script>
