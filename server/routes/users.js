@@ -245,7 +245,7 @@ router.post("/setDefault", function(req, res, next){
                     result : ''
                 });
             }else{
-                var addressList.doc.addressList;
+                var addressList = doc.addressList;
                 addressList.forEach((item) => {
                     if(item.addressId == addressId){
                         item.isDefault = true;

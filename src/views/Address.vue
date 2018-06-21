@@ -115,7 +115,7 @@
             }
         },
         mounted(){
-            this.getAddressList();
+            this.init();
         },
         computed : {
             addressListFilter(){
@@ -124,7 +124,7 @@
         },
         methods : {
             //获取用户地址列表
-            getAddressList(){
+            init(){
                 axios.get("/users/addressList").then((response) => {
                     let res = response.data;
                     this.addressList = res.result;
@@ -140,7 +140,15 @@
             },
             //设置默认地址
             setDefault(addressId){
-                
+                axios.post("/users/setDefault", {
+                    addressId : addressId
+                }).then((response) => {
+                    let res = response.data;
+                    if(res.status == '0'){
+                        this.init();
+                        console.log("set default");
+                    }
+                })
             }
         },
         components:{
