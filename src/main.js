@@ -28,7 +28,10 @@ const store = new Vuex.Store({
         },
         updateCartCount(state, cartCount){
             state.cartCount += cartCount;
-        }   
+        },
+        initCartCount(state, cartCount){
+            state.cartCount = cartCount;
+        }
     }
 });
 

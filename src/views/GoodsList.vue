@@ -198,6 +198,7 @@
                     if(res.status == '0'){
                         console.log(res);
                         this.mdShowCart = true;
+                        this.$store.commit("updateCartCount", 1);
                         // alert(res.msg);
                     }else{
                         console.log(res);
