@@ -125,12 +125,12 @@
     export default{
         data(){
             return {
-                shipping : 100,
-                discount : 200,
-                tax      : 400,
+                shipping   : 100,
+                discount   : 200,
+                tax        : 400,
                 orderTotal : 0,
                 subTotal   : 0,
-                cartList : []
+                cartList   : []
             }
         },
         mounted(){

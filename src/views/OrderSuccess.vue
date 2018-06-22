@@ -74,7 +74,7 @@
                if(!orderId){
                     return;
                }
-               //更加订单ID查询订单信息
+               //根据订单ID查询订单信息
                axios.get("/users/orderDetail",{
                    params : { orderId : orderId}
                }).then((response) => {
@@ -91,7 +91,6 @@
             NavFooter,
             NavBread, 
             Modal    
-        },
-
+        }
     }
 </script>
